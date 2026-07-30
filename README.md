@@ -61,7 +61,7 @@ isotherm-fit gui
 
 Opens a desktop window (CustomTkinter) to load a CSV, pick models, view the report plot and metrics live, and save the PDF/PNG/JSON outputs — no command-line arguments needed.
 
-For users without Python, the GUI can also be packaged as a standalone Windows `.exe` with `packaging/build_exe.ps1` (PyInstaller) — see [docs/installation.md](https://karenkhachatryan-lab.github.io/isotherm-fit/installation/#standalone-windows-executable-no-python-needed).
+For users without Python, a prebuilt standalone Windows GUI is attached as a `.zip` to each [GitHub Release](https://github.com/karenkhachatryan-lab/isotherm-fit/releases/latest) — download, extract, and run `isotherm-fit-gui.exe`, no installation needed. To build it yourself instead, see `packaging/build_exe.ps1` (PyInstaller) in [docs/installation.md](https://karenkhachatryan-lab.github.io/isotherm-fit/installation/#standalone-windows-executable-no-python-needed).
 
 ## Project status
 

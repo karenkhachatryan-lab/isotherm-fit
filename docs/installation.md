@@ -30,7 +30,9 @@ Adds [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) (CC0-licens
 
 ## Standalone Windows executable (no Python needed)
 
-For users who don't have Python installed, `isotherm-fit gui` can be packaged as a self-contained Windows executable with [PyInstaller](https://pyinstaller.org/):
+The easiest option: download the prebuilt `.zip` attached to the [latest GitHub Release](https://github.com/karenkhachatryan-lab/isotherm-fit/releases/latest), extract it, and run `isotherm-fit-gui.exe` — no Python or installation required.
+
+To build it yourself instead, `isotherm-fit gui` can be packaged as a self-contained Windows executable with [PyInstaller](https://pyinstaller.org/):
 
 ```bash
 python -m venv .venv
