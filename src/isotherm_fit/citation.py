@@ -6,7 +6,7 @@ CITATION_APA = (
     "Khachatryan, K. (2026). isotherm-fit: automated fitting of moisture sorption "
     "isotherm models for food stability assessment (Version "
     f"{__version__}) [Computer software]. "
-    "University of Agriculture in Krakow. https://doi.org/10.5281/zenodo.PENDING"
+    "University of Agriculture in Krakow. https://doi.org/10.5281/zenodo.21710137"
 )
 
 CITATION_BIBTEX = f"""@software{{khachatryan_isotherm_fit_2026,
@@ -14,6 +14,6 @@ CITATION_BIBTEX = f"""@software{{khachatryan_isotherm_fit_2026,
   title   = {{isotherm-fit: automated fitting of moisture sorption isotherm models for food stability assessment}},
   year    = {{2026}},
   version = {{{__version__}}},
-  doi     = {{10.5281/zenodo.PENDING}},
+  doi     = {{10.5281/zenodo.21710137}},
   url     = {{https://github.com/karenkhachatryan-lab/isotherm-fit}}
 }}"""

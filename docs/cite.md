@@ -3,7 +3,7 @@
 If you use `isotherm-fit` in your research, please cite it. Citing the software (not just this documentation page) helps its author get credit and helps other researchers find and verify the tool.
 
 !!! note
-    The DOI below is a placeholder until the first release is archived on Zenodo. Once minted, this page, `README.md`, and `CITATION.cff` will all be updated with the real DOI — check the [repository](https://github.com/karenkhachatryan-lab/isotherm-fit) for the current version.
+    v0.2.0 is archived on Zenodo at DOI [10.5281/zenodo.21710137](https://doi.org/10.5281/zenodo.21710137). Future releases will get their own version-specific DOIs — check the [repository](https://github.com/karenkhachatryan-lab/isotherm-fit) for the current version.
 
 ## APA
 
@@ -11,7 +11,7 @@ If you use `isotherm-fit` in your research, please cite it. Citing the software 
 Khachatryan, K. (2026). isotherm-fit: automated fitting of moisture sorption
 isotherm models for food stability assessment (Version 0.2.0) [Computer
 software]. University of Agriculture in Krakow.
-https://doi.org/10.5281/zenodo.PENDING
+https://doi.org/10.5281/zenodo.21710137
 ```
 
 ## BibTeX
@@ -22,7 +22,7 @@ https://doi.org/10.5281/zenodo.PENDING
   title   = {isotherm-fit: automated fitting of moisture sorption isotherm models for food stability assessment},
   year    = {2026},
   version = {0.2.0},
-  doi     = {10.5281/zenodo.PENDING},
+  doi     = {10.5281/zenodo.21710137},
   url     = {https://github.com/karenkhachatryan-lab/isotherm-fit}
 }
 ```

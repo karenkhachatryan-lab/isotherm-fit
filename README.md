@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-in%20development-orange.svg)](#project-status)
-<!-- Once minted: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.PENDING.svg)](https://doi.org/10.5281/zenodo.PENDING) -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21710137.svg)](https://doi.org/10.5281/zenodo.21710137)
 
 Automated fitting of moisture sorption isotherm models (GAB, BET, Peleg) to experimental water activity data, with objective model selection and food-stability assessment via the monolayer moisture content (m₀).
 
@@ -69,7 +69,7 @@ Early development (v0.2.0) — MVP scope: GAB, BET, Peleg models; CSV loader; AI
 
 ## Citing this software
 
-If you use `isotherm-fit` in your research, please cite it — see [`CITATION.cff`](CITATION.cff) or run `isotherm-fit cite` for the formatted citation and BibTeX entry. A DOI will be added here once the first release is archived on Zenodo.
+If you use `isotherm-fit` in your research, please cite it — see [`CITATION.cff`](CITATION.cff) or run `isotherm-fit cite` for the formatted citation and BibTeX entry. DOI: [10.5281/zenodo.21710137](https://doi.org/10.5281/zenodo.21710137).
 
 ## License
 
