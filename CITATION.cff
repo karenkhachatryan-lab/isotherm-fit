@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "isotherm-fit: automated fitting of moisture sorption isotherm models for food stability assessment"
+version: 0.1.0
+date-released: "2026-07-30"
+authors:
+  - family-names: Khachatryan
+    given-names: Karen
+    orcid: "https://orcid.org/0000-0001-7823-5406"
+    affiliation: "University of Agriculture in Krakow, Laboratory of Nanotechnology and Nanomaterials, Faculty of Food Technology"
+license: MIT
+repository-code: "https://github.com/karenkhachatryan/isotherm-fit"
+url: "https://karenkhachatryan.github.io/isotherm-fit"
+keywords:
+  - moisture sorption isotherm
+  - water activity
+  - GAB model
+  - BET model
+  - food stability
+  - monolayer moisture content
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.PENDING"
+    description: "This DOI represents all versions and will resolve to the latest release once minted on Zenodo."
