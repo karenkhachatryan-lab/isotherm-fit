@@ -28,7 +28,7 @@ ctk.set_default_color_theme("blue")
 
 MODEL_NAMES = ("GAB", "BET", "Peleg")
 PROJECT_EXTENSION = ".isofitproj"
-DOCS_URL = "https://karenkhachatryan.github.io/isotherm-fit"
+DOCS_URL = "https://karenkhachatryan-lab.github.io/isotherm-fit"
 
 
 class IsothermFitApp(ctk.CTk):

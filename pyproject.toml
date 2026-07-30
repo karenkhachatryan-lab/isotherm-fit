@@ -52,9 +52,9 @@ build = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/karenkhachatryan/isotherm-fit"
-Documentation = "https://karenkhachatryan.github.io/isotherm-fit"
-Issues = "https://github.com/karenkhachatryan/isotherm-fit/issues"
+Homepage = "https://github.com/karenkhachatryan-lab/isotherm-fit"
+Documentation = "https://karenkhachatryan-lab.github.io/isotherm-fit"
+Issues = "https://github.com/karenkhachatryan-lab/isotherm-fit/issues"
 
 [project.scripts]
 isotherm-fit = "isotherm_fit.cli:app"

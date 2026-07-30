@@ -1,8 +1,8 @@
 site_name: isotherm-fit
 site_description: Automated fitting of moisture sorption isotherm models for food stability assessment
-site_url: https://karenkhachatryan.github.io/isotherm-fit
-repo_url: https://github.com/karenkhachatryan/isotherm-fit
-repo_name: karenkhachatryan/isotherm-fit
+site_url: https://karenkhachatryan-lab.github.io/isotherm-fit
+repo_url: https://github.com/karenkhachatryan-lab/isotherm-fit
+repo_name: karenkhachatryan-lab/isotherm-fit
 
 theme:
   name: material

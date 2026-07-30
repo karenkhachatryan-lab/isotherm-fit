@@ -19,7 +19,7 @@ pip install isotherm-fit
 Or from source:
 
 ```bash
-git clone https://github.com/karenkhachatryan/isotherm-fit.git
+git clone https://github.com/karenkhachatryan-lab/isotherm-fit.git
 cd isotherm-fit
 pip install -e ".[dev]"
 ```
@@ -61,7 +61,7 @@ isotherm-fit gui
 
 Opens a desktop window (CustomTkinter) to load a CSV, pick models, view the report plot and metrics live, and save the PDF/PNG/JSON outputs — no command-line arguments needed.
 
-For users without Python, the GUI can also be packaged as a standalone Windows `.exe` with `packaging/build_exe.ps1` (PyInstaller) — see [docs/installation.md](https://karenkhachatryan.github.io/isotherm-fit/installation/#standalone-windows-executable-no-python-needed).
+For users without Python, the GUI can also be packaged as a standalone Windows `.exe` with `packaging/build_exe.ps1` (PyInstaller) — see [docs/installation.md](https://karenkhachatryan-lab.github.io/isotherm-fit/installation/#standalone-windows-executable-no-python-needed).
 
 ## Project status
 

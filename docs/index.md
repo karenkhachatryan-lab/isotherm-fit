@@ -21,4 +21,4 @@ Moisture sorption isotherms are a standard measurement in food technology resear
 
 ## Status
 
-Early development (v0.2.0). See the [GitHub repository](https://github.com/karenkhachatryan/isotherm-fit) for the latest release.
+Early development (v0.2.0). See the [GitHub repository](https://github.com/karenkhachatryan-lab/isotherm-fit) for the latest release.

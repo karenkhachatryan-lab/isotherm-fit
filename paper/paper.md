@@ -41,6 +41,6 @@ The package is validated against a synthetic dataset with known ground-truth par
 
 # Availability
 
-`isotherm-fit` is available on GitHub at <https://github.com/karenkhachatryan/isotherm-fit> and on PyPI (`pip install isotherm-fit`), under the MIT license. Documentation, including installation instructions, a quick-start guide, and model descriptions, is available at <https://karenkhachatryan.github.io/isotherm-fit>.
+`isotherm-fit` is available on GitHub at <https://github.com/karenkhachatryan-lab/isotherm-fit> and on PyPI (`pip install isotherm-fit`), under the MIT license. Documentation, including installation instructions, a quick-start guide, and model descriptions, is available at <https://karenkhachatryan-lab.github.io/isotherm-fit>.
 
 # References

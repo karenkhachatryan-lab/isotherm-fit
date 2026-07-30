@@ -9,7 +9,7 @@ pip install isotherm-fit
 ## From source
 
 ```bash
-git clone https://github.com/karenkhachatryan/isotherm-fit.git
+git clone https://github.com/karenkhachatryan-lab/isotherm-fit.git
 cd isotherm-fit
 pip install -e ".[dev]"
 ```

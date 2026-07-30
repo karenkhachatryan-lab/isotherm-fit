@@ -15,5 +15,5 @@ CITATION_BIBTEX = f"""@software{{khachatryan_isotherm_fit_2026,
   year    = {{2026}},
   version = {{{__version__}}},
   doi     = {{10.5281/zenodo.PENDING}},
-  url     = {{https://github.com/karenkhachatryan/isotherm-fit}}
+  url     = {{https://github.com/karenkhachatryan-lab/isotherm-fit}}
 }}"""
