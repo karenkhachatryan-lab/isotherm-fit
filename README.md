@@ -65,11 +65,15 @@ For users without Python, a prebuilt standalone Windows GUI is attached as a `.z
 
 ## Project status
 
-Early development (v0.2.0) — MVP scope: GAB, BET, Peleg models; CSV loader; AIC-based model selection; PDF/PNG + JSON report generation; CLI via Typer; optional CustomTkinter desktop GUI. See [CHANGELOG](#) once released.
+Early development (v0.2.0) — MVP scope: GAB, BET, Peleg models; CSV loader; AIC-based model selection; PDF/PNG + JSON report generation; CLI via Typer; optional CustomTkinter desktop GUI. See [CHANGELOG.md](CHANGELOG.md).
 
 ## Citing this software
 
 If you use `isotherm-fit` in your research, please cite it — see [`CITATION.cff`](CITATION.cff) or run `isotherm-fit cite` for the formatted citation and BibTeX entry. DOI: [10.5281/zenodo.21710137](https://doi.org/10.5281/zenodo.21710137).
+
+## Contributing and support
+
+Bug reports, feature requests, and usage questions are all welcome via [GitHub Issues](https://github.com/karenkhachatryan-lab/isotherm-fit/issues). See [CONTRIBUTING.md](CONTRIBUTING.md) for how to set up a development environment and submit changes.
 
 ## License
 
