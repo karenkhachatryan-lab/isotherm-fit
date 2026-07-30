@@ -7,15 +7,19 @@ hard dependency of the core package.
 
 from __future__ import annotations
 
+import json
+import tkinter as tk
+import webbrowser
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
 import customtkinter as ctk
+import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from isotherm_fit import __version__
 from isotherm_fit.citation import CITATION_APA, CITATION_BIBTEX
-from isotherm_fit.data import load_isotherm_csv
+from isotherm_fit.data import IsothermData, load_isotherm_csv
 from isotherm_fit.models import fit_all, get_monolayer_reference, select_best_model
 from isotherm_fit.report import build_figure, export_json, save_report
 
@@ -23,6 +27,8 @@ ctk.set_appearance_mode("system")
 ctk.set_default_color_theme("blue")
 
 MODEL_NAMES = ("GAB", "BET", "Peleg")
+PROJECT_EXTENSION = ".isofitproj"
+DOCS_URL = "https://karenkhachatryan.github.io/isotherm-fit"
 
 
 class IsothermFitApp(ctk.CTk):
@@ -33,12 +39,57 @@ class IsothermFitApp(ctk.CTk):
         self.minsize(800, 600)
 
         self.data = None
+        self.csv_path = None
         self.results = None
         self.best = None
         self.m0_source = None
         self.canvas = None
 
+        self._build_menu()
         self._build_layout()
+
+    # ------------------------------------------------------------------ menu
+
+    def _build_menu(self) -> None:
+        menubar = tk.Menu(self)
+        self.configure(menu=menubar)
+
+        self.file_menu = tk.Menu(menubar, tearoff=False)
+        self.file_menu.add_command(label="Open CSV...", command=self.open_csv, accelerator="Ctrl+O")
+        self.file_menu.add_command(label="Open Project...", command=self.open_project_dialog)
+        self.file_menu.add_separator()
+        self.file_menu.add_command(
+            label="Save Project...", command=self.save_project_dialog, state="disabled", accelerator="Ctrl+S"
+        )
+        self.file_menu.add_separator()
+        self.file_menu.add_command(
+            label="Save Report (PDF+PNG)...", command=self.save_report_dialog, state="disabled"
+        )
+        self.file_menu.add_command(label="Save JSON...", command=self.save_json_dialog, state="disabled")
+        self.file_menu.add_separator()
+        self.file_menu.add_command(label="Exit", command=self.destroy, accelerator="Ctrl+Q")
+        menubar.add_cascade(label="File", menu=self.file_menu)
+
+        edit_menu = tk.Menu(menubar, tearoff=False)
+        edit_menu.add_command(label="Refit models", command=self.run_fit)
+        edit_menu.add_command(label="Clear", command=self.clear_all)
+        menubar.add_cascade(label="Edit", menu=edit_menu)
+
+        help_menu = tk.Menu(menubar, tearoff=False)
+        help_menu.add_command(label="Documentation", command=lambda: webbrowser.open(DOCS_URL))
+        help_menu.add_command(label="Cite...", command=self.show_citation)
+        help_menu.add_separator()
+        help_menu.add_command(label="About isotherm-fit", command=self.show_about)
+        menubar.add_cascade(label="Help", menu=help_menu)
+
+        self.bind_all("<Control-o>", lambda e: self.open_csv())
+        self.bind_all("<Control-s>", lambda e: self.save_project_dialog())
+        self.bind_all("<Control-q>", lambda e: self.destroy())
+
+    def _set_file_menu_state(self, label: str, state: str) -> None:
+        self.file_menu.entryconfigure(self.file_menu.index(label), state=state)
+
+    # ---------------------------------------------------------------- layout
 
     def _build_layout(self) -> None:
         controls = ctk.CTkFrame(self)
@@ -82,10 +133,28 @@ class IsothermFitApp(ctk.CTk):
             bottom, text="Save JSON", command=self.save_json_dialog, state="disabled"
         )
         self.save_json_button.pack(side="left", padx=5)
-        ctk.CTkButton(bottom, text="Cite...", command=self.show_citation).pack(side="right", padx=5)
 
         self.status_label = ctk.CTkLabel(bottom, text="", anchor="w")
         self.status_label.pack(side="left", padx=15, fill="x", expand=True)
+
+    # ------------------------------------------------------------------ data
+
+    def _load_data(self, data: IsothermData, display_name: str, selected_models: tuple[str, ...] | None = None) -> None:
+        self.data = data
+        self.results = self.best = self.m0_source = None
+        self.path_label.configure(text=f"{display_name}  ({len(self.data)} points)")
+        if selected_models is not None:
+            for name in MODEL_NAMES:
+                self.model_vars[name].set(name in selected_models)
+        self.fit_button.configure(state="normal")
+        self._set_file_menu_state("Save Project...", "normal")
+        self._set_file_menu_state("Save Report (PDF+PNG)...", "disabled")
+        self._set_file_menu_state("Save JSON...", "disabled")
+        self.save_report_button.configure(state="disabled")
+        self.save_json_button.configure(state="disabled")
+        self.status_label.configure(text="")
+        self._clear_plot()
+        self.metrics_box.delete("1.0", "end")
 
     def open_csv(self) -> None:
         path = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv"), ("All files", "*.*")])
@@ -96,12 +165,19 @@ class IsothermFitApp(ctk.CTk):
         except Exception as exc:
             messagebox.showerror("Error loading CSV", str(exc))
             return
-
-        self.data = data
         self.csv_path = Path(path)
+        self._load_data(data, self.csv_path.name)
+
+    def clear_all(self) -> None:
+        self.data = self.csv_path = None
         self.results = self.best = self.m0_source = None
-        self.path_label.configure(text=f"{self.csv_path.name}  ({len(self.data)} points)")
-        self.fit_button.configure(state="normal")
+        self.path_label.configure(text="No file selected")
+        self.fit_button.configure(state="disabled")
+        for var in self.model_vars.values():
+            var.set(True)
+        self._set_file_menu_state("Save Project...", "disabled")
+        self._set_file_menu_state("Save Report (PDF+PNG)...", "disabled")
+        self._set_file_menu_state("Save JSON...", "disabled")
         self.save_report_button.configure(state="disabled")
         self.save_json_button.configure(state="disabled")
         self.status_label.configure(text="")
@@ -127,6 +203,8 @@ class IsothermFitApp(ctk.CTk):
         self._render_metrics()
         self.save_report_button.configure(state="normal")
         self.save_json_button.configure(state="normal")
+        self._set_file_menu_state("Save Report (PDF+PNG)...", "normal")
+        self._set_file_menu_state("Save JSON...", "normal")
         self.status_label.configure(
             text=f"Best model (AIC): {self.best.model_name}" +
             (f"   |   m0 ({self.m0_source.model_name}) = {self.m0_source.m0:.4f}" if self.m0_source else "")
@@ -166,6 +244,8 @@ class IsothermFitApp(ctk.CTk):
             lines.append(f"m0 (stability), from {self.m0_source.model_name}: {self.m0_source.m0:.4f}")
         self.metrics_box.insert("1.0", "\n".join(lines))
 
+    # --------------------------------------------------------------- saving
+
     def save_report_dialog(self) -> None:
         if self.best is None:
             return
@@ -190,6 +270,64 @@ class IsothermFitApp(ctk.CTk):
         out = export_json(self.data, self.results, self.best, stem, m0_source=self.m0_source)
         messagebox.showinfo("JSON saved", f"Saved: {out}")
 
+    # ------------------------------------------------------------- projects
+
+    def _project_payload(self) -> dict:
+        return {
+            "isotherm_fit_project_version": 1,
+            "app_version": __version__,
+            "source_file": str(self.csv_path) if self.csv_path else None,
+            "data": {
+                "aw": self.data.aw.tolist(),
+                "moisture": self.data.moisture.tolist(),
+                "moisture_std": self.data.moisture_std.tolist() if self.data.moisture_std is not None else None,
+            },
+            "selected_models": [name for name in MODEL_NAMES if self.model_vars[name].get()],
+        }
+
+    def save_project_to(self, path: str | Path) -> None:
+        Path(path).write_text(json.dumps(self._project_payload(), indent=2), encoding="utf-8")
+
+    def save_project_dialog(self) -> None:
+        if self.data is None:
+            return
+        path = filedialog.asksaveasfilename(
+            defaultextension=PROJECT_EXTENSION,
+            filetypes=[("isotherm-fit project", f"*{PROJECT_EXTENSION}")],
+        )
+        if not path:
+            return
+        self.save_project_to(path)
+        messagebox.showinfo("Project saved", f"Saved: {path}")
+
+    def load_project_from(self, path: str | Path) -> None:
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        d = payload["data"]
+        data = IsothermData(
+            aw=np.array(d["aw"], dtype=float),
+            moisture=np.array(d["moisture"], dtype=float),
+            moisture_std=np.array(d["moisture_std"], dtype=float) if d.get("moisture_std") else None,
+            source=Path(payload.get("source_file") or path),
+        )
+        self.csv_path = Path(payload.get("source_file") or path)
+        selected = tuple(payload.get("selected_models", MODEL_NAMES)) or MODEL_NAMES
+        self._load_data(data, f"{Path(path).name} [project]", selected_models=selected)
+
+    def open_project_dialog(self) -> None:
+        path = filedialog.askopenfilename(
+            filetypes=[("isotherm-fit project", f"*{PROJECT_EXTENSION}"), ("All files", "*.*")]
+        )
+        if not path:
+            return
+        try:
+            self.load_project_from(path)
+        except Exception as exc:
+            messagebox.showerror("Error loading project", str(exc))
+            return
+        self.status_label.configure(text="Project loaded — click Fit models to compute results.")
+
+    # ------------------------------------------------------------- dialogs
+
     def show_citation(self) -> None:
         win = ctk.CTkToplevel(self)
         win.title("Cite isotherm-fit")
@@ -198,6 +336,36 @@ class IsothermFitApp(ctk.CTk):
         box.pack(fill="both", expand=True, padx=10, pady=10)
         box.insert("1.0", CITATION_APA + "\n\n" + CITATION_BIBTEX)
         box.configure(state="disabled")
+
+    def show_about(self) -> None:
+        win = ctk.CTkToplevel(self)
+        win.title("About isotherm-fit")
+        win.geometry("480x380")
+        win.resizable(False, False)
+
+        ctk.CTkLabel(win, text="isotherm-fit", font=ctk.CTkFont(size=22, weight="bold")).pack(pady=(24, 0))
+        ctk.CTkLabel(win, text=f"version {__version__}").pack(pady=(0, 12))
+        ctk.CTkLabel(
+            win,
+            text="Automated fitting of moisture sorption isotherm models\nfor food stability assessment.",
+            justify="center",
+        ).pack(pady=(0, 12))
+        ctk.CTkLabel(
+            win,
+            text=(
+                "Karen Khachatryan\n"
+                "Laboratory of Nanotechnology and Nanomaterials\n"
+                "Faculty of Food Technology\n"
+                "University of Agriculture in Krakow\n"
+                "ORCID: 0000-0001-7823-5406"
+            ),
+            justify="center",
+        ).pack(pady=(0, 12))
+        ctk.CTkLabel(win, text="License: MIT").pack()
+        link = ctk.CTkLabel(win, text=DOCS_URL, text_color=("blue", "#4aa3ff"), cursor="hand2")
+        link.pack(pady=(8, 16))
+        link.bind("<Button-1>", lambda e: webbrowser.open(DOCS_URL))
+        ctk.CTkButton(win, text="Close", command=win.destroy).pack(pady=(0, 16))
 
 
 def main() -> None:
