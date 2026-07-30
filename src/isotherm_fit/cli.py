@@ -6,7 +6,7 @@ from pathlib import Path
 
 import typer
 
-from isotherm_fit import __version__
+from isotherm_fit.citation import CITATION_APA, CITATION_BIBTEX
 from isotherm_fit.data import load_isotherm_csv
 from isotherm_fit.models import fit_all, get_monolayer_reference, select_best_model
 from isotherm_fit.report import export_json, save_report
@@ -16,22 +16,6 @@ app = typer.Typer(
     help="Fit moisture sorption isotherm models and assess food stability.",
     add_completion=False,
 )
-
-CITATION_APA = (
-    "Khachatryan, K. (2026). isotherm-fit: automated fitting of moisture sorption "
-    "isotherm models for food stability assessment (Version "
-    f"{__version__}) [Computer software]. "
-    "University of Agriculture in Krakow. https://doi.org/10.5281/zenodo.PENDING"
-)
-
-CITATION_BIBTEX = f"""@software{{khachatryan_isotherm_fit_2026,
-  author  = {{Khachatryan, Karen}},
-  title   = {{isotherm-fit: automated fitting of moisture sorption isotherm models for food stability assessment}},
-  year    = {{2026}},
-  version = {{{__version__}}},
-  doi     = {{10.5281/zenodo.PENDING}},
-  url     = {{https://github.com/karenkhachatryan/isotherm-fit}}
-}}"""
 
 
 @app.command()
@@ -72,6 +56,20 @@ def cite() -> None:
     typer.echo(CITATION_APA)
     typer.echo("")
     typer.echo(CITATION_BIBTEX)
+
+
+@app.command()
+def gui() -> None:
+    """Launch the desktop GUI (requires the 'gui' extra: pip install isotherm-fit[gui])."""
+    try:
+        from isotherm_fit.gui import main as gui_main
+    except ImportError as exc:
+        typer.echo(
+            "The GUI requires customtkinter. Install it with:\n"
+            "  pip install isotherm-fit[gui]"
+        )
+        raise typer.Exit(code=1) from exc
+    gui_main()
 
 
 if __name__ == "__main__":

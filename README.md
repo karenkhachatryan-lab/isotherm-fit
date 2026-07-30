@@ -52,9 +52,18 @@ Print citation information:
 isotherm-fit cite
 ```
 
+### Desktop GUI (optional)
+
+```bash
+pip install "isotherm-fit[gui]"
+isotherm-fit gui
+```
+
+Opens a desktop window (CustomTkinter) to load a CSV, pick models, view the report plot and metrics live, and save the PDF/PNG/JSON outputs — no command-line arguments needed.
+
 ## Project status
 
-Early development (v0.1.0) — MVP scope: GAB, BET, Peleg models; CSV loader; AIC-based model selection; PDF/PNG + JSON report generation; CLI via Typer. See [CHANGELOG](#) once released.
+Early development (v0.2.0) — MVP scope: GAB, BET, Peleg models; CSV loader; AIC-based model selection; PDF/PNG + JSON report generation; CLI via Typer; optional CustomTkinter desktop GUI. See [CHANGELOG](#) once released.
 
 ## Citing this software
 

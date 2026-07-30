@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "isotherm-fit"
-version = "0.1.0"
+version = "0.2.0"
 description = "Fit moisture sorption isotherm models (GAB, BET, Peleg) and estimate food stability from experimental water activity data."
 readme = "README.md"
 license = "MIT"
@@ -44,6 +44,9 @@ docs = [
     "mkdocs>=1.6",
     "mkdocs-material>=9.5",
 ]
+gui = [
+    "customtkinter>=5.2",
+]
 
 [project.urls]
 Homepage = "https://github.com/karenkhachatryan/isotherm-fit"
@@ -52,6 +55,7 @@ Issues = "https://github.com/karenkhachatryan/isotherm-fit/issues"
 
 [project.scripts]
 isotherm-fit = "isotherm_fit.cli:app"
+isotherm-fit-gui = "isotherm_fit.gui:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/isotherm_fit"]

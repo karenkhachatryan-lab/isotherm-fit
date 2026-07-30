@@ -42,6 +42,16 @@ isotherm-fit cite
 
 Prints the APA-style citation and BibTeX entry for the installed version — see also [Cite](cite.md).
 
+## Desktop GUI
+
+If you installed the `[gui]` extra (`pip install "isotherm-fit[gui]"`):
+
+```bash
+isotherm-fit gui
+```
+
+opens a window where you can open a CSV, toggle which models to fit, see the report plot and metrics update live, and save the PDF/PNG/JSON with file dialogs — equivalent to the CLI's `fit` command, without needing to type flags.
+
 ## Try it on the bundled examples
 
 ```bash

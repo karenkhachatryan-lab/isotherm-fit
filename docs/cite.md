@@ -9,7 +9,7 @@ If you use `isotherm-fit` in your research, please cite it. Citing the software 
 
 ```
 Khachatryan, K. (2026). isotherm-fit: automated fitting of moisture sorption
-isotherm models for food stability assessment (Version 0.1.0) [Computer
+isotherm models for food stability assessment (Version 0.2.0) [Computer
 software]. University of Agriculture in Krakow.
 https://doi.org/10.5281/zenodo.PENDING
 ```
@@ -21,7 +21,7 @@ https://doi.org/10.5281/zenodo.PENDING
   author  = {Khachatryan, Karen},
   title   = {isotherm-fit: automated fitting of moisture sorption isotherm models for food stability assessment},
   year    = {2026},
-  version = {0.1.0},
+  version = {0.2.0},
   doi     = {10.5281/zenodo.PENDING},
   url     = {https://github.com/karenkhachatryan/isotherm-fit}
 }
