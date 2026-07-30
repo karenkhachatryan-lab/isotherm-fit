@@ -17,6 +17,9 @@ htmlcov/
 # Docs
 site/
 
+# PyInstaller build output
+packaging/*.spec
+
 # Reports generated at runtime
 *.report.pdf
 *.report.png

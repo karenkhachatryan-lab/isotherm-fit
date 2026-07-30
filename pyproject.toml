@@ -47,6 +47,9 @@ docs = [
 gui = [
     "customtkinter>=5.2",
 ]
+build = [
+    "pyinstaller>=6.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/karenkhachatryan/isotherm-fit"
